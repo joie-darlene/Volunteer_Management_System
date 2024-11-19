@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if volunteer %}Edit Volunteer{% else %}Add New Volunteer{% endif %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(223, 235, 240);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            border: 2px solid #2c3e50;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            grid-column: span 2;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #3498db;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            grid-column: span 2;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+
+        .help-text {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{% if volunteer %}Edit {{ volunteer.first_name }}{% else %}Add New User {% endif %}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="first_name">First Name:</label>
+                {{ form.first_name }}
+            </div>
+            <div>
+                <label for="last_name">Last Name:</label>
+                {{ form.last_name }}
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                {{ form.email }}
+            </div>
+            <div>
+                <label for="password1">Password:</label>
+                {{ form.password1 }}
+            </div>
+            <div>
+                <label for="password2">Confirm Password:</label>
+                {{ form.password2 }}
+            </div>
+            <div>
+                <label for="phone">Phone:</label>
+                {{ form.phone }}
+            </div>
+            <div class="full-width">
+                <label for="address">Address:</label>
+                {{ form.address }}
+            </div>
+            <div>
+                <label for="city">City:</label>
+                {{ form.city }}
+            </div>
+            <div>
+                <label for="skills">Skills:</label>
+                {{ form.skills }}
+                <p class="help-text">{{ form.skills.help_text }}</p>
+            </div>
+            <div>
+                <label for="availability">Availability:</label>
+                {{ form.availability }}
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                {{ form.role }}
+                <p class="help-text">{{ form.role.help_text }}</p>
+            </div>
+            <div class="full-width checkbox-container">
+                <input type="checkbox" id="is_active" name="is_active" {% if form.is_active.value %}checked{% endif %}>
+                <label for="is_active">Is Active</label>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+        <a href="/login" class="login-link">Already have an account? Login</a>
+    </div>
+</body>
+</html>

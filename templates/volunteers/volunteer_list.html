@@ -1,0 +1,163 @@
+
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteers List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            text-align: right;  /* Aligns the table to the right */
+        }
+
+        table {
+            width: 50%;  /* Adjust the width as needed */
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 0; /* Ensure the table sticks to the right */
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .edit-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #229954;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-top: 10px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 25px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Volunteers</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Skills</th>
+                    <th>Availability</th>
+                    <th>Actions</th> <!-- New actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                <tr>
+                    <td>{{ volunteer.first_name }}</td>
+                    <td>{{ volunteer.last_name }}</td>
+                    <td>{{ volunteer.username }}</td>
+                    <td>{{ volunteer.email }}</td>
+                    <td>{{ volunteer.phone }}</td>
+                    <td>{{ volunteer.address }}</td>
+                    <td>{{ volunteer.city }}</td>
+                    <td>{{ volunteer.skills }}</td>
+                    <td>{{ volunteer.availability }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'volunteer_edit' volunteer.pk %}" class="edit-btn">Edit</a>
+                            <a href="{% url 'volunteer_delete' volunteer.pk %}" class="delete-btn">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'event_create' %}">Create New Event</a>
+        <a href="{% url 'event_list' %}">events</a>
+
+    </div>
+</body>
+</html>
+

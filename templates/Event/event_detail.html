@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(223, 235, 240);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            border: 2px solid #2c3e50;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #3498db;
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            flex: 1;
+            max-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ event.name }}</h1>
+        <p>{{ event.description }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Date:</strong> {{ event.date|date:"F j, Y" }}</p>
+        <p><strong>Time:</strong> {{ event.time|time:"g:i A" }}</p>
+
+        <div class="button-container">
+            <a href="{% url 'event_list' %}">Back to Event List</a>
+            <a href="{% url 'event_update' event.pk %}">Edit</a>
+            <a href="{% url 'event_delete' event.pk %}">Delete</a>
+        </div>
+    </div>
+</body>
+</html>

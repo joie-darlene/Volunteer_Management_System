@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <style>
+    
+    .apply-btn {
+        padding: 8px 12px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .apply-btn:hover {
+        background-color: #2980b9;
+    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .edit-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #229954;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container a:hover {
+            background-color: #2980b9;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Event List</h1>
+
+    <ul>
+        {% for event in events %}
+        <li>
+            <span>
+                <a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a> - {{ event.description }}
+                <br>
+                <small>{{ event.date|date:"F j, Y" }} at {{ event.time|time:"g:i A" }}</small>
+            </span>
+            <div class="action-buttons">
+                {% if user.is_authenticated and user.role == 'volunteer' %}
+                    <a href="{% url 'apply_to_event' event.pk %}" class="apply-btn">Apply</a>
+                {% endif %}
+            </div>
+        </li>
+        {% empty %}
+        <li>No events available.</li>
+        {% endfor %}
+    </ul>
+    
+
+    <div class="button-container">
+        <!-- <a href="{% url 'event_create' %}">Create New Event</a> -->
+    </div>
+</body>
+</html>
