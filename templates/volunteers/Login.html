@@ -67,12 +67,20 @@
             font-size: 0.875rem;
             margin-top: 0.5rem;
         }
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #3498db;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            grid-column: span 2;}
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2 class="login-header">Login</h2>
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'volunteers:login' %}">
             {% csrf_token %}
             {% if messages %}
                 <div class="error-message">
@@ -119,6 +127,7 @@
                 {% endif %}
             </div>
             <button type="submit" class="btn-login">Login</button>
+            <a href="/register" class="register_link">you don't have an account ? Register</a>
         </form>
     </div>
 </body>

@@ -29,7 +29,7 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = []
-Auth_USER_MODEL = 'volunteers.Volunteer'
+AUTH_USER_MODEL = 'volunteers.Volunteer'
 # SESSION_COOKIE-AGE= 30
 # SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events_categories',
     'volunteers',
+    
 ]
 
 MIDDLEWARE = [

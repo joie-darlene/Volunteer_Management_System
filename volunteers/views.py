@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404 
 from .models import Volunteer
 from django.contrib.auth import login, logout,authenticate
 from django.contrib import messages
@@ -8,7 +8,8 @@ from .forms import VolunteerForm, VolunteerAuthForm
 
 def volunteer_list(request):
     volunteers = Volunteer.objects.all()
-    return render(request, 'volunteers/volunteer_list.html', {'volunteers': volunteers})
+    return render(request, 'volunteers/volunteer_list.html', {'volunteers': volunteers, 'user': request.user})
+
 def home(request):
     return render(request, 'layout.html')
 
@@ -38,16 +39,28 @@ def volunteer_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None and user.role == role:  # Check role
                 login(request, user)
-                # Redirect to appropriate dashboard based on role
-                if role == 'volunteer':
-                    return redirect('/event/')
-                elif role == 'recruiter':
-                    return redirect('/volunteers/')
+                if user.role == 'volunteer':
+                    return redirect('/event/')  
+                elif user.role == 'recruiter':
+                    return redirect('volunteers:volunteer_list')  # Corrected redirection
             else:
+                # if user is not None and user.role == role:  # Check role
+                #     login(request, user)
+                #     # Redirect to appropriate dashboard based on role
+                #     if user.role == 'volunteer':
+                #         return redirect('/event/')
+                #     elif user.role == 'recruiter':
+                #         return redirect('/volunteers/')
+                # else:
                 messages.error(request, 'Invalid credentials or role.')
     else:
         form = VolunteerAuthForm()
     return render(request, 'volunteers/login.html', {'form': form})
+
+
+def volunteer_logout(request):
+    logout(request)  
+    return redirect('volunteers:home') 
 
 # View to edit an existing volunteer
 def volunteer_edit(request, pk):
@@ -69,3 +82,5 @@ def volunteer_delete(request, pk):
         volunteer.delete()
         return redirect('volunteer_list')  # Redirect to the list after deletion
     return render(request, 'volunteers/volunteer_confirm_delete.html', {'volunteer': volunteer})
+
+   

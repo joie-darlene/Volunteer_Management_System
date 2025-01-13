@@ -146,8 +146,8 @@
                     <td>{{ volunteer.availability }}</td>
                     <td>
                         <div class="action-buttons">
-                            <a href="{% url 'volunteer_edit' volunteer.pk %}" class="edit-btn">Edit</a>
-                            <a href="{% url 'volunteer_delete' volunteer.pk %}" class="delete-btn">Delete</a>
+                            <a href="{% url 'volunteers:volunteer_edit' volunteer.pk %}" class="edit-btn">Edit</a>
+                            <a href="{% url 'volunteers:volunteer_delete' volunteer.pk %}" class="delete-btn">Delete</a>
                         </div>
                     </td>
                 </tr>

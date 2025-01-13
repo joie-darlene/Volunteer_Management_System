@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # Admin interface
     path('', include('volunteers.urls')),  # Make sure 'your_app' matches your app name
     path('event/', include('events_categories.urls')),  # Make sure 'your_app' matches your app name
+    path('volunteers/', include('volunteers.urls')),
 ]
